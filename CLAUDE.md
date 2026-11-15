@@ -34,7 +34,8 @@ Die heruntergeladene PC-Datei braucht keine Extras – `index.html` läuft auch 
 (Service Worker/Update-Check nur auf github.io aktiv).
 
 ## Spiel – feste Regeln und Werte
-- **Timing-Balken**: Marker läuft rechts → links. **Grün in der Mitte = Volltreffer** (schmal),
+- **Timing-Balken**: Marker läuft **zufällig rechts → links oder links → rechts** (auch im Training),
+  vorher kurz ein gelber Richtungspfeil (0,35 s, Schläge in der Zeit zählen nicht). **Grün in der Mitte = Volltreffer** (schmal),
   **Gelb links/rechts = schwacher Treffer**, dazwischen Lücken (= Block). Zonen in Sekunden (`LV`-Tabelle).
 - **Kondition**: Start 100 pro Level, **keine Erholung im Kampf**. Volltreffer 0, schwach −3, daneben −10.
 - **Gegner-Lebenspunkte** 100: Volltreffer −12, schwach −4, Superschlag −60.
@@ -46,12 +47,13 @@ Die heruntergeladene PC-Datei braucht keine Extras – `index.html` läuft auch 
 - **Minispiele** vor jedem Level (7 Stück, zufällig): Trainer-Kombo, Kopfrechnen, Schiebepuzzle,
   Seilspringen, Hütchen, Panzerschlacht, Ork-Lauf – jeweils mit Carla-Küchenversion.
   „ÜBERSPRINGEN“ startet direkt den Kampf. Gewinn: Superschlag oder Extra-Kondition,
-  Inventar max. 5, gespeichert, **max. 1 Bonus pro Kampf**.
+  **gilt nur für den nächsten Kampf** (nicht gespeichert, ungenutzt = weg), **max. 1 Bonus pro Kampf**.
+  Nach Bonus-Aktivierung 1,6 s Pause, bevor der Balken weiterläuft.
 - **Keine Bildschirm-Blitze** bei Treffern (nur Wackeln + Effekte). Blitz nur beim finalen K.O.
 
 ## Figuren
 - **Leis** (Karikatur aus Berts Foto): lange Haare mit Mittelscheitel, Brille, rundes Gesicht, Kapuzenpulli.
-  Altert pro Level: **Haare dunkelbraun → braun-grau → graubraun → grau → weiß**, wird breiter, Glatze ab Level 5,
+  Haare L1–3 **schulterlang**, ab grau/weiß lang. Altert pro Level: **Haare dunkelbraun → braun-grau → graubraun → grau → weiß**, wird breiter, Glatze ab Level 5,
   Narbe ab Level 4. Handschuhe pro Level: Rot, Blau gestreift, Gelb Blitz, Grün Flammen, Gold Nieten,
   Ultra Schwarz mit glühenden Totenköpfen – wachsend.
 - **Carla**: hellblonder Bob mit Pony (**bleibt blond**), runde braune Brille, Strickschal, Schürze ab Level 2,
@@ -61,9 +63,9 @@ Die heruntergeladene PC-Datei braucht keine Extras – `index.html` läuft auch 
 - Treffer-Effekte: blaues Auge, kaputtes Brillenglas, dicke Lippe (dunkelrot-violett unter dem Mund),
   ausgeschlagene Zähne (max. 3, sichtbare Lücken), Beulen/Pflaster; bei Carla zusätzlich Mehl, Ei, Lockenwickler.
 
-- **Tanne** (Unfallchirurg, aus Berts Foto): kurze dunkelbraune Haare, schmales Gesicht, große Ohren,
-  grauer Kinnbart mit Schnurrbart, grünes T-Shirt + dunkle Jacke (L1), danach OP-Kittel, OP-Haube ab L3,
-  Lupenbrille ab L4, Mundschutz, Ultra mit Stirnlampe. Haare werden braun-grau, Bart länger.
+- **Tanne** (Unfallchirurg, aus Berts Foto): **schmales, hageres Gesicht**, schmales Kinn, große Ohren,
+  **dünner Stoppel-Vollbart wie Sean Connery** (kein Spitzbart), **immer grüner OP-Kittel + OP-Mütze**,
+  Lupenbrille ab L4, Mundschutz ab L4, Ultra mit Stirnlampe. Haare werden braun-grau, Bart dichter/länger.
   Waffen = Chirurgie-Werkzeug: L1 Reflexhammer+Schraubenzieher, L2 Pinzette+Skalpell, L3 Schraubenzieher+Hüftknochen,
   L4 Hüftknochen+Akkubohrer, L5 Knochenhammer+Knochensäge, Ultra Säge+Bohrer. Arena: OP-Saal (Röntgenbild, EKG, OP-Lampe).
   Leerlauf-Gag: Skelett, dem der Kopf abfällt. Minispiele mit OP-Varianten (Herz-Takt, Bakterien-Jagd, Klinik-Flur …).
