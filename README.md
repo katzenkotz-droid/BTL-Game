@@ -24,4 +24,4 @@ Comic-Timing-Boxspiel im C64-Stil. Läuft im Browser auf PC, Tablet und Handy �
 | `sw.js` | Offline-Speicher (Service Worker) |
 | `icons/` | App-Icons |
 
-**Update veröffentlichen:** neue `index.html` hochladen und in `sw.js` die Versionsnummer (`btl-v2.1`) erhöhen.
+**Update veröffentlichen:** neue `index.html` hochladen und in `sw.js` die Versionsnummer (`btl-v2.2`) erhöhen.

@@ -16,6 +16,10 @@ html,body{margin:0;height:100%;background:#0b0712;overflow:hidden;font-family:sy
 canvas{display:block;box-shadow:0 0 40px #000;cursor:pointer;outline:none}
 #fsBtn{position:fixed;left:8px;top:8px;display:none;z-index:5;font:700 14px system-ui;padding:8px 12px;border-radius:10px;border:2px solid #fff;background:rgba(0,0,0,.6);color:#fff}
 .thumb{position:fixed;display:none;z-index:4;flex-direction:column;align-items:center;justify-content:center;border-radius:18px;border:3px solid #fff;color:#fff;font:900 34px Impact,'Arial Black',sans-serif;touch-action:none;box-shadow:0 4px 14px rgba(0,0,0,.5)}
+.punch{position:fixed;display:none;z-index:4;flex-direction:column;align-items:center;justify-content:center;border-radius:50%;border:4px solid #ff9a1f;background:radial-gradient(circle at 40% 35%,#4a2a5a,#120a18 70%);touch-action:none;box-shadow:0 0 18px rgba(255,140,0,.45),inset 0 0 18px rgba(0,0,0,.6);color:#fff;font:900 15px Impact,'Arial Black',sans-serif;letter-spacing:1px;transition:transform .06s}
+.punch svg{width:62%;height:62%;filter:drop-shadow(0 3px 2px rgba(0,0,0,.5))}
+.punch.R svg{transform:scaleX(-1)}
+.punch.hit{transform:scale(.88);box-shadow:0 0 34px rgba(255,220,80,.95),inset 0 0 18px rgba(0,0,0,.6)}
 .thumb small{font:700 11px system-ui;margin-top:2px}.thumb b{font:700 14px system-ui}
 #nameBox{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.55)}
 #nameBox .card{background:#120a18;border:4px solid #ff9a1f;border-radius:14px;padding:22px 30px;text-align:center;color:#ffd27a;box-shadow:0 0 34px #ff7a00aa}
@@ -28,6 +32,8 @@ canvas{display:block;box-shadow:0 0 40px #000;cursor:pointer;outline:none}
 <body>
 <div id="wrap"><canvas id="c" tabindex="0"></canvas></div>
 <button id="fsBtn">⛶ Vollbild</button>
+<div id="punchL" class="punch L"><svg viewBox="0 0 100 100"><rect x="30" y="66" width="40" height="26" rx="7" fill="#f2f2f2" stroke="#1a1020" stroke-width="4"/><ellipse cx="52" cy="42" rx="32" ry="33" fill="#d62828" stroke="#1a1020" stroke-width="4"/><ellipse cx="24" cy="55" rx="12" ry="18" transform="rotate(-25 24 55)" fill="#d62828" stroke="#1a1020" stroke-width="4"/><ellipse cx="42" cy="26" rx="11" ry="7" transform="rotate(-30 42 26)" fill="rgba(255,255,255,.45)"/></svg>SCHLAG</div>
+<div id="punchR" class="punch R"><svg viewBox="0 0 100 100"><rect x="30" y="66" width="40" height="26" rx="7" fill="#f2f2f2" stroke="#1a1020" stroke-width="4"/><ellipse cx="52" cy="42" rx="32" ry="33" fill="#d62828" stroke="#1a1020" stroke-width="4"/><ellipse cx="24" cy="55" rx="12" ry="18" transform="rotate(-25 24 55)" fill="#d62828" stroke="#1a1020" stroke-width="4"/><ellipse cx="42" cy="26" rx="11" ry="7" transform="rotate(-30 42 26)" fill="rgba(255,255,255,.45)"/></svg>SCHLAG</div>
 <div id="thumbS" class="thumb">S<small>SUPERSCHLAG</small><b>0</b></div>
 <div id="thumbK" class="thumb">K<small>KONDITION</small><b>0</b></div>
 <div id="nameBox"><div class="card">
@@ -308,8 +314,9 @@ function sweepSpeed(){
 function chooseSpot(sd){
   return pick(sd===0?['eyeL','glassL','cheekL','forehead','nose','lip','eyeL','glassL','cheekL','chin']:['eyeR','glassR','cheekR','forehead','nose','lip','eyeR','glassR','cheekR','chin']);
 }
-function fightClick(){
+function fightClick(forceSide){
   if(bar.cool>0||cine)return;
+  if(forceSide===0||forceSide===1)side=1-forceSide;
   const el=(performance.now()-lastUpd)/1000;
   const p=clamp(bar.p+bar.dir*sweepSpeed()*el,0,1);
   const r=classify(p);
@@ -1535,23 +1542,30 @@ window.addEventListener('keydown',e=>{
 document.addEventListener('visibilitychange',()=>{if(document.hidden&&(state===S.PLAY||state===S.MINI))paused=true;});
 
 /* ================= Handy: Daumentasten, Vollbild ================= */
-const thumbS=document.getElementById('thumbS'),thumbK=document.getElementById('thumbK'),fsBtn=document.getElementById('fsBtn');
+const punchL=document.getElementById('punchL'),punchR=document.getElementById('punchR'),thumbS=document.getElementById('thumbS'),thumbK=document.getElementById('thumbK'),fsBtn=document.getElementById('fsBtn');
 let tuiCache='';
 function updateTouchUI(){
   if(!IS_TOUCH)return;
   const m=(window.innerWidth-W*scale)/2,show=state===S.PLAY&&m>=64&&!confirmQ&&!paused;
   const fsShow=state===S.TITLE&&document.fullscreenEnabled&&!document.fullscreenElement&&!(window.matchMedia&&matchMedia('(display-mode: fullscreen)').matches);
-  const key=[show,fsShow,Math.round(m),inv.s,inv.k,bonusUsed,superArmed,window.innerHeight].join('|');
+  const key=[show,fsShow,Math.round(m),inv.s,inv.k,bonusUsed,superArmed,window.innerHeight,mode].join('|');
   if(key===tuiCache)return;tuiCache=key;
   fsBtn.style.display=fsShow?'block':'none';
+  const IH=window.innerHeight,w=Math.min(m-14,140),ps=Math.min(w,IH*0.46);
+  for(const [el,left] of [[punchL,true],[punchR,false]]){
+    if(!show){el.style.display='none';continue;}
+    el.style.display='flex';el.style.width=ps+'px';el.style.height=ps+'px';el.style.top=(IH*0.1)+'px';
+    el.style.left=(left?(m-ps)/2:window.innerWidth-m+(m-ps)/2)+'px';el.style.borderColor=TH().acc;
+  }
   for(const [el,k,n,col] of [[thumbS,'s',inv.s,'#ff7a2a'],[thumbK,'k',inv.k,'#2ad16a']]){
     if(!show){el.style.display='none';continue;}
-    const w=Math.min(m-14,130),h=Math.min(window.innerHeight*0.38,150),ok=!bonusUsed&&n>0&&!(k==='s'&&superArmed);
-    el.style.display='flex';el.style.width=w+'px';el.style.height=h+'px';el.style.top=(window.innerHeight*0.5)+'px';
+    const h=Math.min(IH*0.3,110),ok=!bonusUsed&&n>0&&!(k==='s'&&superArmed);
+    el.style.display='flex';el.style.width=w+'px';el.style.height=h+'px';el.style.top=(IH*0.64)+'px';el.style.fontSize=Math.round(h*0.3)+'px';
     el.style.left=(k==='s'?(m-w)/2:window.innerWidth-m+(m-w)/2)+'px';
     el.style.background=ok?col:'#3a3044';el.style.opacity=ok?'1':'0.6';el.querySelector('b').textContent=bonusUsed?'BENUTZT':'× '+n;
   }
 }
+for(const [el,sd] of [[punchL,0],[punchR,1]])el.addEventListener('pointerdown',e=>{e.preventDefault();e.stopPropagation();initAudio();if(state===S.PLAY&&!confirmQ&&!paused)fightClick(sd);el.classList.add('hit');setTimeout(()=>el.classList.remove('hit'),110);});
 for(const [el,k] of [[thumbS,'s'],[thumbK,'k']])el.addEventListener('pointerdown',e=>{e.preventDefault();e.stopPropagation();useBonus(k);tuiCache='';});
 fsBtn.addEventListener('click',e=>{e.preventDefault();initAudio();const d=document.documentElement;try{const pr=d.requestFullscreen?d.requestFullscreen({navigationUI:'hide'}):null;if(pr&&pr.then)pr.then(()=>{try{screen.orientation&&screen.orientation.lock&&screen.orientation.lock('landscape').catch(()=>{});}catch(err){}}).catch(()=>{});}catch(err){}tuiCache='';});
 document.getElementById('wrap').addEventListener('pointerdown',e=>{if(e.target.id==='wrap'&&state===S.PLAY&&!confirmQ&&!paused){e.preventDefault();initAudio();onAction();}});
