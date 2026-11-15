@@ -51,6 +51,7 @@ Die heruntergeladene PC-Datei braucht keine Extras – `index.html` läuft auch 
   „ÜBERSPRINGEN“ startet direkt den Kampf. Gewinn: Superschlag oder Extra-Kondition,
   **gilt nur für den nächsten Kampf** (nicht gespeichert, ungenutzt = weg), **max. 1 Bonus pro Kampf**.
   Nach Bonus-Aktivierung 1,6 s Pause, bevor der Balken weiterläuft.
+  Carla/Tanne: Rechnen 30 s mit kleinen Zahlen (max. 3 Stellen), Pfannkuchen/Herz-Takt langsamer als Seilspringen.
 - **Keine Bildschirm-Blitze** bei Treffern (nur Wackeln + Effekte). Blitz nur beim finalen K.O.
 
 ## Figuren
