@@ -22,6 +22,7 @@ Comic-Timing-Boxspiel im C64-Stil. Läuft im Browser auf PC, Tablet und Handy �
 | `index.html` | das komplette Spiel (Grafik, Sound, Logik) |
 | `manifest.webmanifest` | App-Name, Icon, Querformat, Vollbild |
 | `sw.js` | Offline-Speicher (Service Worker) |
+| `version.json` | aktuelle Versionsnummer – die App vergleicht sie beim Start und zeigt ggf. „Neue Version“ |
 | `icons/` | App-Icons |
 
-**Update veröffentlichen:** neue `index.html` hochladen und in `sw.js` die Versionsnummer (`btl-v2.2`) erhöhen.
+**Update veröffentlichen:** `index.html`, `sw.js` und `version.json` hochladen. In allen dreien steht dieselbe Versionsnummer – die App zeigt dann beim Start „Neue Version verfügbar“.
