@@ -49,7 +49,8 @@ canvas{display:block;box-shadow:0 0 40px #000;cursor:pointer;outline:none}
 const W=800,H=600,TAU=Math.PI*2,R=115,INK='#1a1020';
 const cv=document.getElementById('c');
 let ctx=cv.getContext('2d');
-const APP_VERSION='2.6';
+const APP_VERSION='2.7';
+const IN_APP=(window.matchMedia&&(matchMedia('(display-mode: standalone)').matches||matchMedia('(display-mode: fullscreen)').matches))||String(document.referrer).startsWith('android-app://');
 let newVersion=null;
 function cmpVer(a,b){const x=String(a).split('.').map(Number),y=String(b).split('.').map(Number);for(let i=0;i<Math.max(x.length,y.length);i++){const d=(x[i]||0)-(y[i]||0);if(d)return d;}return 0;}
 function checkUpdate(){if(!/github\.io$/.test(location.hostname))return;try{fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{if(j&&j.version&&cmpVer(j.version,APP_VERSION)>0)newVersion=j.version;}).catch(()=>{});}catch(e){}}
@@ -1460,7 +1461,8 @@ const YES_BTN={x:240,y:330,w:150,h:58},NO_BTN={x:410,y:330,w:150,h:58};
 function askConfirm(k){confirmQ=k;SFX.beep(600);}
 function confirmYes(){const k=confirmQ;confirmQ=null;if(k==='abort'){timers=[];cine=null;superArmed=false;gl=null;crack=null;goTitle();}else if(k==='quit')powerOff();}
 function confirmNo(){confirmQ=null;}
-function powerOff(){stopMusic();SFX.off();state=S.OFF;stateT=0;timers=[];texts=[];catMode=false;cat=null;}
+function powerOff(){stopMusic();SFX.off();state=S.OFF;stateT=0;timers=[];texts=[];catMode=false;cat=null;if(IN_APP){setTimeout(()=>{try{window.close();}catch(e){}},700);}}
+const AGAIN_BTN={x:300,y:430,w:200,h:50};
 function drawConfirm(){
   ctx.fillStyle='rgba(0,0,0,0.65)';ctx.fillRect(0,0,W,H);panel(170,200,460,220);
   comicText(confirmQ==='quit'?'SPIEL BEENDEN?':'KAMPF ABBRECHEN?',400,250,40,'#ffe14d',8);
@@ -1473,8 +1475,9 @@ function drawOff(){
   else if(t<0.5){const w=lerp(W,6,easeIn((t-0.25)/0.25));ctx.fillStyle='#ffffff';ctx.fillRect(400-w/2,298,w,4);}
   else if(t<0.9){const k=(t-0.5)/0.4;circ(400,300,3*(1-k)+0.5);fs(`rgba(255,255,255,${1-k})`);}
   else{const a=clamp((t-0.9)/0.6,0,1);ctx.globalAlpha=a;comicText('TSCHÜSS!',400,250,72,TH().led,12);
-    ctx.font='18px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillStyle='#cdbbe0';ctx.fillText('Du kannst das Fenster jetzt schließen.',400,330);
-    if(t>1.5&&Math.sin(time*4)>-0.3){ctx.fillStyle='#777';ctx.fillText('Klick oder Taste = wieder einschalten',400,380);}ctx.globalAlpha=1;}
+    ctx.font='18px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillStyle='#cdbbe0';ctx.fillText(IN_APP?'Zum Schließen die Android-Zurück-Taste drücken':'Du kannst das Fenster jetzt schließen.',400,330);
+    if(IN_APP){if(t>1.5){const b=AGAIN_BTN;rr(b.x,b.y,b.w,b.h,12);fs('#2a2a34','#777',2);ctx.fillStyle='#ccc';ctx.font='bold 16px system-ui';ctx.fillText('▶ Weiterspielen',b.x+b.w/2,b.y+b.h/2+1);}}
+    else if(t>1.5&&Math.sin(time*4)>-0.3){ctx.fillStyle='#777';ctx.fillText('Klick oder Taste = wieder einschalten',400,380);}ctx.globalAlpha=1;}
 }
 function draw(){
   drawMain();
@@ -1514,7 +1517,7 @@ function onAction(){
   initAudio();
   if(nameOpen)return;
   if(confirmQ)return;
-  if(state===S.OFF){if(stateT>1){state=S.BOOT;stateT=0;}return;}
+  if(state===S.OFF){if(stateT>1&&!IN_APP){state=S.BOOT;stateT=0;}return;}
   if(paused){paused=false;return;}
   switch(state){
     case S.BOOT:startLoad();return;
@@ -1529,6 +1532,7 @@ cv.addEventListener('pointerdown',e=>{
   e.preventDefault();try{window.focus();cv.focus({preventScroll:true});}catch(err){}initAudio();titleIdle=0;
   const r=cv.getBoundingClientRect(),x=(e.clientX-r.left)/r.width*W,y=(e.clientY-r.top)/r.height*H;
   if(confirmQ){if(inRect(YES_BTN,x,y))confirmYes();else if(inRect(NO_BTN,x,y))confirmNo();return;}
+  if(state===S.OFF&&IN_APP){if(stateT>1.5&&inRect(AGAIN_BTN,x,y)){initAudio();goTitle();}return;}
   if(state!==S.BOOT&&state!==S.LOAD&&state!==S.OFF&&inRect(muteRect,x,y)){toggleMute();return;}
   if(state===S.MINI&&mini.phase!=='result'&&inRect(skipRect,x,y)){paused=false;skipMini();return;}
   if((state===S.PLAY||state===S.INTRO)&&inRect(closeRect,x,y)){paused=false;askConfirm('abort');return;}
@@ -1592,7 +1596,7 @@ document.getElementById('wrap').addEventListener('pointerdown',e=>{if(e.target.i
 document.addEventListener('fullscreenchange',()=>{tuiCache='';resize();});
 
 /* Testzugang für automatische Prüfung */
-window.__btl={fakeUpdate:(v)=>{newVersion=v;},setMode:(m)=>{mode=m;hsCache=loadHS(m);},confirm:(k)=>{confirmQ=k;},powerOff,get state(){return state;},get bar(){return bar;},get hp(){return oppHP;},set:(o)=>{if(o.level!=null)level=o.level;if(o.state!=null){state=o.state;stateT=o.stateT||0;}if(o.inv){inv=o.inv;}},S,startRound,startMini,lose,win,
+window.__btl={setInApp:()=>{},fakeUpdate:(v)=>{newVersion=v;},setMode:(m)=>{mode=m;hsCache=loadHS(m);},confirm:(k)=>{confirmQ=k;},powerOff,get state(){return state;},get bar(){return bar;},get hp(){return oppHP;},set:(o)=>{if(o.level!=null)level=o.level;if(o.state!=null){state=o.state;stateT=o.stateT||0;}if(o.inv){inv=o.inv;}},S,startRound,startMini,lose,win,
   dmg:(o)=>Object.assign(dmg,o),setHp:(v)=>{oppHP=v;lagHP=v;},cat:()=>{catMode=true;catStart();},catT:(st,t)=>{cat.state=st;cat.t=t||0;},mini:()=>mini,cineStart:startCine,
   measure:async(which)=>{const oc=new OfflineAudioContext(1,44100*1.6,44100);laughVoice(oc,oc.destination,0.05,1);const buf=await oc.startRendering();const d=buf.getChannelData(0);let s2=0,m=0,n=0;for(let i=0;i<d.length;i++){const v=Math.abs(d[i]);if(v>m)m=v;if(v>0.01){s2+=d[i]*d[i];n++;}}return {peak:m,rms:Math.sqrt(s2/Math.max(1,n))};}};
 })();
