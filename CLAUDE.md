@@ -1,4 +1,4 @@
-# BTL – Beat the Leis · Beat Carla
+# BEAT THEM – Beat the Leis · Beat Carla · Beat Tanne
 
 Comic-Timing-Boxspiel im C64-Stil von Bert. Läuft als Web-App über GitHub Pages
 (https://katzenkotz-droid.github.io/BTL-Game/), als Android-App (TWA/APK aus PWABuilder,
@@ -61,7 +61,20 @@ Die heruntergeladene PC-Datei braucht keine Extras – `index.html` läuft auch 
 - Treffer-Effekte: blaues Auge, kaputtes Brillenglas, dicke Lippe (dunkelrot-violett unter dem Mund),
   ausgeschlagene Zähne (max. 3, sichtbare Lücken), Beulen/Pflaster; bei Carla zusätzlich Mehl, Ei, Lockenwickler.
 
+- **Tanne** (Unfallchirurg, aus Berts Foto): kurze dunkelbraune Haare, schmales Gesicht, große Ohren,
+  grauer Kinnbart mit Schnurrbart, grünes T-Shirt + dunkle Jacke (L1), danach OP-Kittel, OP-Haube ab L3,
+  Lupenbrille ab L4, Mundschutz, Ultra mit Stirnlampe. Haare werden braun-grau, Bart länger.
+  Waffen = Chirurgie-Werkzeug: L1 Reflexhammer+Schraubenzieher, L2 Pinzette+Skalpell, L3 Schraubenzieher+Hüftknochen,
+  L4 Hüftknochen+Akkubohrer, L5 Knochenhammer+Knochensäge, Ultra Säge+Bohrer. Arena: OP-Saal (Röntgenbild, EKG, OP-Lampe).
+  Leerlauf-Gag: Skelett, dem der Kopf abfällt. Minispiele mit OP-Varianten (Herz-Takt, Bakterien-Jagd, Klinik-Flur …).
+
+## Training (Boxbirne)
+- Knopf „🥊 TRAINING“ (Taste T) im Titel. Stufe 1–5 / Ultra wählbar, gleicher Timing-Balken wie im Kampf.
+- Kein Zeitlimit, keine Kondition, kein Gegenschlag, kein Highscore.
+- Statistik: Schläge, Voll/Schwach/Daneben, Serie, beste Serie, Quote, Ø Abweichung in ms.
+- Nach 50 Treffern reißt die Kette, die Birne fliegt weg → Ergebnis (NOCHMAL / MENÜ). Esc/✕ = Ergebnis.
+
 ## Bedienung
 - PC: Leertaste/Klick = Schlag, S/K = Bonus, M = Ton, P = Pause, Esc/Strg+C = Abbrechen (mit J/N).
 - Handy: große Schlag-Tasten mit Handschuh in den Seitenrändern, darunter S/K; Tippen überall = Schlag.
-- Startbildschirm: Gegnerwahl LEIS/CARLA, großer ▶ START-Knopf, BEENDEN (Röhren-TV-Aus).
+- Startbildschirm: Titel „BEAT THEM“, Gegnerwahl LEIS/CARLA/TANNE (Pfeile oder 1-2-3), großer ▶ START-Knopf, BEENDEN (Röhren-TV-Aus).
