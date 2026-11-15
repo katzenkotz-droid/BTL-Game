@@ -5,7 +5,7 @@ Comic-Timing-Boxspiel im C64-Stil. Läuft im Browser auf PC, Tablet und Handy �
 **Spielen:** https://katzenkotz-droid.github.io/BTL-Game/
 
 ## So geht's
-- **Schlagen:** Leertaste / Klick / Tippen, wenn der Marker in der goldenen Mitte ist (Volltreffer). Grün = schwacher Treffer, dazwischen = Block und kostet Kondition.
+- **Schlagen:** Leertaste / Klick / Tippen, wenn der Marker in der grünen Mitte ist (Volltreffer). Gelb = schwacher Treffer, dazwischen = Block und kostet Kondition.
 - **60 Sekunden** pro Level, Kondition erholt sich im Kampf nicht.
 - **Minispiele** vor jedem Level bringen Boni (Superschlag `S`, Extra-Kondition `K`), max. 5 im Inventar, 1 pro Kampf.
 - **Gegner:** Leis (Boxring) oder Carla (Küche), je 5 Level + Ultra-Modus.
