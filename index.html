@@ -50,7 +50,7 @@ canvas{display:block;box-shadow:0 0 40px #000;cursor:pointer;outline:none}
 const W=800,H=600,TAU=Math.PI*2,R=115,INK='#1a1020';
 const cv=document.getElementById('c');
 let ctx=cv.getContext('2d');
-const APP_VERSION='4.2';
+const APP_VERSION='4.3';
 const KO_WIND=0.9,KO_SLOW=2.4,KO_HIT=3.6,KO_COUNT=4.7,KO_END=9.9;
 let counter=null,koWhoosh=0;
 const IN_APP=(window.matchMedia&&(matchMedia('(display-mode: standalone)').matches||matchMedia('(display-mode: fullscreen)').matches))||String(document.referrer).startsWith('android-app://');
@@ -1664,9 +1664,9 @@ function drawCat(c){
 }
 const SEL_BTNS=[{m:'leis',x:170,y:494,w:150,h:44},{m:'carla',x:325,y:494,w:150,h:44},{m:'tanne',x:480,y:494,w:150,h:44}];
 const MODES=['leis','carla','tanne'];
-const TRAIN_BTN={x:656,y:552,w:130,h:36};
+const TRAIN_BTN={x:610,y:544,w:180,h:50};
 const SEL_COL={leis:['#ff9a1f','#e8302a'],carla:['#ff5fb0','#c42bd6'],tanne:['#5ae8c8','#1a8a7a']};
-const QUIT_BTN={x:14,y:552,w:130,h:36};
+const QUIT_BTN={x:10,y:544,w:150,h:50};
 const START_BTN={x:290,y:546,w:220,h:48};
 function setMode(m){if(m===mode)return;mode=m;hsCache=loadHS(m);cat=null;catMode=false;titleIdle=0;texts=[];stopMusic();startMusic();SFX.tick();}
 function rainbow(x0,x1){const g=ctx.createLinearGradient(x0,0,x1,0);['#ff4d4d','#ffa64d','#ffe14d','#5ad15a','#4da6ff','#c42bd6'].forEach((c,i)=>g.addColorStop(i/5,c));return g;}
@@ -1693,15 +1693,16 @@ function drawTitle(){
     if(act){const g=ctx.createLinearGradient(0,b.y,0,b.y+b.h);g.addColorStop(0,SEL_COL[b.m][0]);g.addColorStop(1,SEL_COL[b.m][1]);ctx.fillStyle=g;}else ctx.fillStyle='rgba(20,10,30,0.85)';
     ctx.fill();ctx.lineWidth=act?4:2;ctx.strokeStyle=act?'#ffffff':'#6a5a78';ctx.stroke();
     comicText(b.m.toUpperCase(),b.x+b.w/2,b.y+b.h/2+1,24,act?'#ffffff':'#9a8aa8',5);}
-  rr(TRAIN_BTN.x,TRAIN_BTN.y,TRAIN_BTN.w,TRAIN_BTN.h,10);fs('rgba(20,40,60,0.9)',T.acc,2);
-  ctx.font='bold 14px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillStyle='#fff';ctx.fillText('🥊  TRAINING',TRAIN_BTN.x+TRAIN_BTN.w/2,TRAIN_BTN.y+TRAIN_BTN.h/2+1);
-  rr(QUIT_BTN.x,QUIT_BTN.y,QUIT_BTN.w,QUIT_BTN.h,10);fs('rgba(60,10,20,0.9)',T.acc,2);
-  ctx.font='bold 14px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillStyle='#fff';ctx.fillText('⏻  BEENDEN',QUIT_BTN.x+QUIT_BTN.w/2,QUIT_BTN.y+QUIT_BTN.h/2+1);
+  {const b=TRAIN_BTN,pl=1+0.03*Math.sin(time*3+1);ctx.save();ctx.translate(b.x+b.w/2,b.y+b.h/2);ctx.scale(pl,pl);ctx.translate(-(b.x+b.w/2),-(b.y+b.h/2));
+   rr(b.x,b.y,b.w,b.h,12);const g=ctx.createLinearGradient(0,b.y,0,b.y+b.h);g.addColorStop(0,'#ffd23f');g.addColorStop(1,'#ff8a1f');ctx.fillStyle=g;ctx.fill();ctx.lineWidth=3;ctx.strokeStyle='#ffffff';ctx.stroke();
+   ctx.font='26px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('🥊',b.x+26,b.y+b.h/2+2);comicText('TRAINING',b.x+b.w/2+16,b.y+b.h/2+1,22,'#ffffff',5);ctx.restore();}
+  {const b=QUIT_BTN;rr(b.x,b.y,b.w,b.h,12);const g=ctx.createLinearGradient(0,b.y,0,b.y+b.h);g.addColorStop(0,'#c0303a');g.addColorStop(1,'#6a1018');ctx.fillStyle=g;ctx.fill();ctx.lineWidth=3;ctx.strokeStyle='#ffffff';ctx.stroke();
+   comicText('⏻ BEENDEN',b.x+b.w/2,b.y+b.h/2+1,20,'#ffffff',5);}
   {const b=START_BTN,pulse=1+Math.sin(time*6)*0.04;ctx.save();ctx.translate(b.x+b.w/2,b.y+b.h/2);ctx.scale(pulse,pulse);ctx.translate(-(b.x+b.w/2),-(b.y+b.h/2));
    rr(b.x,b.y,b.w,b.h,14);const g=ctx.createLinearGradient(0,b.y,0,b.y+b.h);g.addColorStop(0,'#5ad15a');g.addColorStop(1,'#1f8a2f');ctx.fillStyle=g;ctx.fill();ctx.lineWidth=4;ctx.strokeStyle='#ffffff';ctx.stroke();
    comicText('▶  START',b.x+b.w/2,b.y+b.h/2+1,30,'#ffffff',6);ctx.restore();
 }
-  ctx.font='bold 10px system-ui';ctx.textAlign='right';ctx.textBaseline='alphabetic';ctx.fillStyle='rgba(255,255,255,0.55)';ctx.fillText('v'+APP_VERSION,W-8,598);
+  ctx.font='bold 10px system-ui';ctx.textAlign='right';ctx.textBaseline='alphabetic';ctx.fillStyle='rgba(255,255,255,0.55)';ctx.fillText('v'+APP_VERSION,W-8,539);
   if(newVersion){const b=UPD_BTN,pl=0.5+0.5*Math.sin(time*6);rr(b.x,b.y,b.w,b.h,12);fs(`rgba(${Math.round(200+55*pl)},40,60,0.95)`,'#ffffff',3);
     comicText('🔔 NEUE VERSION '+newVersion+' – '+(IS_TOUCH?'TIPPEN':'KLICKEN')+' ZUM AKTUALISIEREN',b.x+b.w/2,b.y+b.h/2+1,15,'#ffffff',4);}
   if(catMode&&cat)drawCat(cat);

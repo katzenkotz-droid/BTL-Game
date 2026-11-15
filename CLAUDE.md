@@ -82,4 +82,4 @@ Die heruntergeladene PC-Datei braucht keine Extras – `index.html` läuft auch 
 ## Bedienung
 - PC: Leertaste/Klick = Schlag (neutral), linke/rechte Shift-Taste oder linke/rechte Maustaste = linker/rechter Handschuh, S/K = Bonus, M = Ton, P = Pause, Esc/Strg+C = Abbrechen (mit J/N).
 - Handy: große Schlag-Tasten mit Handschuh in den Seitenrändern (= linker/rechter Handschuh), darunter S/K; Tippen überall = Schlag.
-- Startbildschirm: Titel „BEAT THEM“, Gegnerwahl LEIS/CARLA/TANNE (Pfeile oder 1-2-3), großer ▶ START-Knopf, BEENDEN (Röhren-TV-Aus).
+- Startbildschirm: Titel „BEAT THEM“, Gegnerwahl LEIS/CARLA/TANNE (Pfeile oder 1-2-3), großer ▶ START-Knopf, links roter BEENDEN-Knopf (Röhren-TV-Aus), rechts großer orangener TRAINING-Knopf.
