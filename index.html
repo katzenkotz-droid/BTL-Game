@@ -50,7 +50,7 @@ canvas{display:block;box-shadow:0 0 40px #000;cursor:pointer;outline:none}
 const W=800,H=600,TAU=Math.PI*2,R=115,INK='#1a1020';
 const cv=document.getElementById('c');
 let ctx=cv.getContext('2d');
-const APP_VERSION='3.3';
+const APP_VERSION='3.4';
 const KO_WIND=0.9,KO_SLOW=2.4,KO_HIT=3.6,KO_COUNT=4.7,KO_END=9.9;
 let counter=null,koWhoosh=0;
 const IN_APP=(window.matchMedia&&(matchMedia('(display-mode: standalone)').matches||matchMedia('(display-mode: fullscreen)').matches))||String(document.referrer).startsWith('android-app://');
@@ -1262,6 +1262,7 @@ function drawHUD(){
   if(superArmed){ctx.fillStyle=Math.sin(time*12)>0?'#ffb43f':'#fff';ctx.fillText('SUPERSCHLAG BEREIT!',250,578);}
   drawBonusBtn(BTN_S,'S','SUPERSCHLAG',inv.s,'#ff7a2a');
   drawBonusBtn(BTN_K,'K','KONDITION',inv.k,'#2ad16a');
+  ctx.font='9px system-ui';ctx.textAlign='right';ctx.textBaseline='alphabetic';ctx.fillStyle='rgba(255,255,255,0.4)';ctx.fillText('v'+APP_VERSION,W-4,598);
 }
 const closeRect=IS_TOUCH?{x:W-54,y:92,w:48,h:42}:{x:W-46,y:92,w:40,h:32};
 const skipRect=IS_TOUCH?{x:572,y:72,w:180,h:44}:{x:590,y:74,w:160,h:36};
@@ -1321,7 +1322,7 @@ function drawBoot(){
   else{ctx.fillStyle='#7c70da';ctx.fillRect(0,0,W,H);}
   ctx.fillStyle='#3e31a2';ctx.fillRect(48,48,W-96,H-96);
   ctx.font='bold 19px "Courier New",monospace';ctx.fillStyle='#a59cf0';ctx.textAlign='left';ctx.textBaseline='top';
-  const lines=['      **** BTL-SYSTEM 64  V1.0 ****','','  64K RAM SYSTEM  38911 BASIC BYTES FREE','','READY.'];
+  const lines=['      **** BTL-SYSTEM 64  V'+APP_VERSION+' ****','','  64K RAM SYSTEM  38911 BASIC BYTES FREE','','READY.'];
   if(state===S.LOAD){
     const cmd='LOAD"BTL",8,1',n=Math.min(cmd.length,Math.floor(loadT/0.07));lines.push(cmd.slice(0,n));
     if(loadT>1.1){lines.push('');lines.push('SEARCHING FOR BTL');}
