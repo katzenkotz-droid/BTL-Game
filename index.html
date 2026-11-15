@@ -11,6 +11,7 @@
 <link rel="icon" href="icons/icon-192.png">
 <link rel="apple-touch-icon" href="icons/icon-192.png">
 <style>
+*{-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none}
 html,body{margin:0;height:100%;background:#0b0712;overflow:hidden;font-family:system-ui,sans-serif;user-select:none;-webkit-user-select:none;touch-action:none}
 #wrap{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
 canvas{display:block;box-shadow:0 0 40px #000;cursor:pointer;outline:none}
@@ -49,7 +50,7 @@ canvas{display:block;box-shadow:0 0 40px #000;cursor:pointer;outline:none}
 const W=800,H=600,TAU=Math.PI*2,R=115,INK='#1a1020';
 const cv=document.getElementById('c');
 let ctx=cv.getContext('2d');
-const APP_VERSION='3.0';
+const APP_VERSION='3.1';
 const KO_WIND=0.9,KO_SLOW=2.4,KO_HIT=3.6,KO_COUNT=4.7,KO_END=9.9;
 let counter=null,koWhoosh=0;
 const IN_APP=(window.matchMedia&&(matchMedia('(display-mode: standalone)').matches||matchMedia('(display-mode: fullscreen)').matches))||String(document.referrer).startsWith('android-app://');
@@ -378,7 +379,7 @@ function resolvePunch(res,spot,tx,ty,sd){
     dmg[spot]=Math.min(5,dmg[spot]+1);
     if(Math.random()<0.4){const k=pick(FACE_KEYS);dmg[k]=Math.min(5,dmg[k]+1);}
     if(mode==='carla')carlaExtras(tx,ty);
-    head.vx+=dir*300;head.vr+=dir*3;flinch=0.3;shake=Math.max(shake,16);flashC='255,255,255';flashA=0.3;
+    head.vx+=dir*300;head.vr+=dir*3;flinch=0.3;shake=Math.max(shake,16);
     burstStars(tx,ty,10);
     popText(pick(['BÄMM!','VOLLTREFFER!','KRACHER!','WUMMS!','POW!']),clamp(tx+rand(-20,20),150,650),ty-45,'#ffe14d',44,true);
     popText('+'+pts,clamp(tx+rand(-30,30),120,680),ty+35,'#ffd27a',22,false);
@@ -391,7 +392,7 @@ function resolvePunch(res,spot,tx,ty,sd){
 function startCounter(){if(state!==S.PLAY||cine)return;const side=pick([-1,1]);counter={t:0,dur:0.5,hit:false,side,kind:pick(['jab','hook','upper']),tx:400+side*rand(40,140),ty:rand(260,330)};SFX.whoosh();}
 function updateCounter(dt){
   if(!counter)return;counter.t+=dt;
-  if(!counter.hit&&counter.t>=0.2){counter.hit=true;shake=Math.max(shake,8);flashC='255,40,40';flashA=Math.max(flashA,0.22);SFX.punch(false);
+  if(!counter.hit&&counter.t>=0.2){counter.hit=true;shake=Math.max(shake,8);SFX.punch(false);
     popText(pick(mode==='carla'?['BONK!','PATSCH!','AUTSCH!','HUCH!']:['BONK!','AUA!','UFF!','KLATSCH!']),counter.tx+rand(-30,30),counter.ty-40,'#ff6060',34,true);}
   if(counter.t>=counter.dur)counter=null;
 }
@@ -419,7 +420,7 @@ function updateCine(rdt){
     oppHP-=L.ultra?15:60;if(L.ultra)oppHP=Math.max(oppHP,25);
     for(let i=0;i<4;i++){const k=pick(FACE_KEYS);dmg[k]=Math.min(5,dmg[k]+1);}if(mode==='carla'){carlaExtras(oppPos.x,oppPos.y-0.5*R);dmg.egg=1;}
     combo++;const cm=combo>=10?4:combo>=6?3:combo>=3?2:1;addScore(1000*cm);
-    shake=45;flashC='255,255,255';flashA=1;head.vx+=pick([-1,1])*500;head.vy-=300;flinch=0.45;
+    shake=45;head.vx+=pick([-1,1])*500;head.vy-=300;flinch=0.45;
     burstStars(oppPos.x,oppPos.y,24);
     popText('MEGA-WUMMS!!',400,140,'#ffe14d',62,true);
     SFX.punch(true);SFX.crowd(1.5,0.35);
