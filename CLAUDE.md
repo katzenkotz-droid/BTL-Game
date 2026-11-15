@@ -35,8 +35,10 @@ Die heruntergeladene PC-Datei braucht keine Extras – `index.html` läuft auch 
 
 ## Spiel – feste Regeln und Werte
 - **Timing-Balken**: Marker läuft **zufällig rechts → links oder links → rechts** (auch im Training),
-  vorher kurz ein gelber Richtungspfeil (0,35 s, Schläge in der Zeit zählen nicht). **Grün in der Mitte = Volltreffer** (schmal),
+  vorher kurz ein blauer Richtungspfeil (0,35 s, Schläge in der Zeit zählen nicht). **Grün in der Mitte = Volltreffer** (schmal),
   **Gelb links/rechts = schwacher Treffer**, dazwischen Lücken (= Block). Zonen in Sekunden (`LV`-Tabelle).
+- **Passender Handschuh**: Marker von rechts + rechter Handschuh (bzw. links/links) → Volltreffer −14 statt −12,
+  schwach −5 statt −4, „PASST!“ +100 Punkte. Neutral (Leertaste/Tippen/Mitte) = normal, keine Strafe.
 - **Kondition**: Start 100 pro Level, **keine Erholung im Kampf**. Volltreffer 0, schwach −3, daneben −10.
 - **Gegner-Lebenspunkte** 100: Volltreffer −12, schwach −4, Superschlag −60.
 - **60 s pro Level**. Verlieren nur über Kondition oder Zeit. Keine Gegenangriffe als Spielmechanik –
@@ -63,8 +65,9 @@ Die heruntergeladene PC-Datei braucht keine Extras – `index.html` läuft auch 
 - Treffer-Effekte: blaues Auge, kaputtes Brillenglas, dicke Lippe (dunkelrot-violett unter dem Mund),
   ausgeschlagene Zähne (max. 3, sichtbare Lücken), Beulen/Pflaster; bei Carla zusätzlich Mehl, Ei, Lockenwickler.
 
-- **Tanne** (Unfallchirurg, aus Berts Foto): **schmales, hageres Gesicht**, schmales Kinn, große Ohren,
-  **dünner Stoppel-Vollbart wie Sean Connery** (kein Spitzbart), **immer grüner OP-Kittel + OP-Mütze**,
+- **Tanne** (Unfallchirurg, aus Berts Foto): Kopf wie **umgedrehte schlanke Birne**, **Augen immer offen** (nur K.O. Kreuzchen),
+  **schmales, hageres Gesicht**, schmales Kinn, große Ohren,
+  **dünner Stoppel-Vollbart wie Sean Connery** (kein Spitzbart, Oberlippe schwach, um den Mund dichter), **immer grüner OP-Kittel + OP-Mütze**,
   Lupenbrille ab L4, Mundschutz ab L4, Ultra mit Stirnlampe. Haare werden braun-grau, Bart dichter/länger.
   Waffen = Chirurgie-Werkzeug: L1 Reflexhammer+Schraubenzieher, L2 Pinzette+Skalpell, L3 Schraubenzieher+Hüftknochen,
   L4 Hüftknochen+Akkubohrer, L5 Knochenhammer+Knochensäge, Ultra Säge+Bohrer. Arena: OP-Saal (Röntgenbild, EKG, OP-Lampe).
@@ -73,10 +76,10 @@ Die heruntergeladene PC-Datei braucht keine Extras – `index.html` läuft auch 
 ## Training (Boxbirne)
 - Knopf „🥊 TRAINING“ (Taste T) im Titel. Stufe 1–5 / Ultra wählbar, gleicher Timing-Balken wie im Kampf.
 - Kein Zeitlimit, keine Kondition, kein Gegenschlag, kein Highscore.
-- Statistik: Schläge, Voll/Schwach/Daneben, Serie, beste Serie, Quote, Ø Abweichung in ms.
+- Statistik: Schläge, passender Handschuh %, Voll/Schwach/Daneben, Serie, beste Serie, Quote, Ø Abweichung in ms.
 - Nach 50 Treffern reißt die Kette, die Birne fliegt weg → Ergebnis (NOCHMAL / MENÜ). Esc/✕ = Ergebnis.
 
 ## Bedienung
-- PC: Leertaste/Klick = Schlag, S/K = Bonus, M = Ton, P = Pause, Esc/Strg+C = Abbrechen (mit J/N).
-- Handy: große Schlag-Tasten mit Handschuh in den Seitenrändern, darunter S/K; Tippen überall = Schlag.
+- PC: Leertaste/Klick = Schlag (neutral), linke/rechte Shift-Taste oder linke/rechte Maustaste = linker/rechter Handschuh, S/K = Bonus, M = Ton, P = Pause, Esc/Strg+C = Abbrechen (mit J/N).
+- Handy: große Schlag-Tasten mit Handschuh in den Seitenrändern (= linker/rechter Handschuh), darunter S/K; Tippen überall = Schlag.
 - Startbildschirm: Titel „BEAT THEM“, Gegnerwahl LEIS/CARLA/TANNE (Pfeile oder 1-2-3), großer ▶ START-Knopf, BEENDEN (Röhren-TV-Aus).
